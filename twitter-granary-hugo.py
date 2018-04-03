@@ -19,7 +19,7 @@ if __name__ == '__main__':
     # load tweet JSON from command line argument
     posts = json.loads(open(sys.argv[1], 'r').read())
 
-    os.system('mkdir -p notes')
+    os.system('mkdir -p note')
 
     last_date = ''
     counter = 0
@@ -31,7 +31,7 @@ if __name__ == '__main__':
         # Set them to my timezone while I'm at it.
         date = datetime.datetime.strptime(decoded['published'], "%Y-%m-%d %H:%M:%S +0000").replace(tzinfo=utc).astimezone(est)
         # we have the date, which is enough to build the directory path
-        path = "notes/%s" % date.strftime('%Y/%m/%d')
+        path = "note/%s" % date.strftime('%Y/%m/%d')
         if not os.path.isdir(path):
             os.makedirs(path)
             index = "%s/_index.md" % path
@@ -47,7 +47,7 @@ if __name__ == '__main__':
             last_date = date
         # now we have a unique date and time, which we can use to
         # create the output file
-        filename = "notes/%s/%s.md" % (date.strftime('%Y/%m/%d'), date.strftime('%H%M%S'))
+        filename = "note/%s/%s.md" % (date.strftime('%Y/%m/%d'), date.strftime('%H%M%S'))
         file = open(filename, 'w')
         file.write('---\n')
         file.write('author: skippy\n')
