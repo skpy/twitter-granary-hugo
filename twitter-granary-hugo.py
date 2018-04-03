@@ -19,7 +19,8 @@ if __name__ == '__main__':
     # load tweet JSON from command line argument
     posts = json.loads(open(sys.argv[1], 'r').read())
 
-    os.system('mkdir -p note')
+    if not os.path.isdir('note'):
+        os.makedirs('path')
 
     last_date = ''
     counter = 0
@@ -59,8 +60,8 @@ if __name__ == '__main__':
         # that activity here.
         if decoded['verb'] == 'share':
             # we'll deal with retweets first.
-            file.write("retweet_url: %s\n" % decoded['object']['url'])
-            file.write("retweet_user: %s\n" % decoded['object']['author']['username'])
+            file.write("repost_url: %s\n" % decoded['object']['url'])
+            file.write("repost_name: %s\n" % decoded['object']['author']['username'])
         if decoded['verb'] == 'post':
             # this is either a new post, or a reply
             if 'inReplyTo' in decoded['object']:
@@ -80,7 +81,4 @@ if __name__ == '__main__':
         file.write('%s\n' % microformats2.render_content(obj, False))
         file.write("\n")
         file.close()
-
-        #with open('mf2/%s.json' % mf2['properties']['published'][0], 'wb') as mf2_file:
-        #  mf2_file.write(mf2_json)
 
