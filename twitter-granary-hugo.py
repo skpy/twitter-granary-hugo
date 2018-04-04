@@ -20,7 +20,7 @@ if __name__ == '__main__':
     posts = json.loads(open(sys.argv[1], 'r').read())
 
     if not os.path.isdir('note'):
-        os.makedirs('path')
+        os.makedirs('note')
 
     last_date = ''
     counter = 0
